@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gym Lot</title>
+    <style>
+        /* Add some basic CSS for styling */
+        
+        #available-spots {
+            float:right;
+            width:49%;
+            height:10%;
+        }
+        
+        #spots {
+            float:left;
+            width:50%;
+            height:10%;
+        }
+        
+        #parking {
+            margin-left:37%;
+            width:50%;
+            height:10%
+        }
+        
+        .spot-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .spot-list li {
+            margin: 10px;
+            padding: 12px;
+            border: 3px solid #ccc;
+            background-color: #f0f0f0;
+        }
+
+        /* Add CSS for the confirmation message */
+        .confirmation-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px;
+            display: none;
+        }
+
+        .success-message {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .error-message {
+            background-color: #FF0000;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id ="parking">
+    <h1>BVW Parking - Gym Lot</h1>
+    </div>
+
+    <div id = "spots">
+    <h2>Pick a Spot:</h2>
+    <ul id="spot-list" class="spot-list">
+        <!-- Initially, populate the available spots list with all spots as available -->
+        <li>
+            Spot 1
+            <button onclick="markOccupied(1)">Mark as Occupied</button>
+        </li>
+        <li>
+            Spot 2
+            <button onclick="markOccupied(2)">Mark as Occupied</button>
+        </li>
+        <li>
+            Spot 3
+            <button onclick="markOccupied(3)">Mark as Occupied</button>
+        </li>
+        <li>
+            Spot 4
+            <button onclick="markOccupied(4)">Mark as Occupied</button>
+        </li>
+        <li>
+            Spot 5
+            <button onclick="markOccupied(5)">Mark as Occupied</button>
+        </li>
+        <li>
+            Spot 6
+            <button onclick="markOccupied(6)">Mark as Occupied</button>
+        </li>
+        <li>
+            Spot 7
+            <button onclick="markOccupied(7)">Mark as Occupied</button>
+        </li>
+        <li>
+            Spot 8
+            <button onclick="markOccupied(8)">Mark as Occupied</button>
+        </li>
+        <li>
+            Spot 9
+            <button onclick="markOccupied(9)">Mark as Occupied</button>
+        </li>
+        <li>
+            Spot 10
+            <button onclick="markOccupied(10)">Mark as Occupied</button>
+        </li>
+    </ul>
+    </div>
+
+    <div id = "available-spots">
+    <h2>Available Parking Spots</h2>
+    <ul id="available-spot-list" class="spot-list">
+        <!-- Initially, the list is populated with all spots as available -->
+        <li>Spot 1</li>
+        <li>Spot 2</li>
+        <li>Spot 3</li>
+        <li>Spot 4</li>
+        <li>Spot 5</li>
+        <li>Spot 6</li>
+        <li>Spot 7</li>
+        <li>Spot 8</li>
+        <li>Spot 9</li>
+        <li>Spot 10</li>
+    </ul>
+</div>
+
+    <!-- Confirmation message for successful occupation -->
+    <div id="confirmation" class="confirmation-message success-message">The spot has been successfully marked as occupied.</div>
+    
+    <!-- Confirmation message for already taken spots -->
+    <div id="taken-confirmation" class="confirmation-message error-message">The spot is already taken.</div>
+
+    <script>
+        const availableSpots = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // Initially, populate the available spots list with all spots as available
+
+        function markOccupied(spotNumber) {
+            // Find the list item for the selected parking spot
+            const listItem = document.querySelector(`#spot-list li:nth-child(${spotNumber})`);
+
+            // Check if the spot is already marked as occupied
+            if (listItem.classList.contains('occupied')) {
+                // Show the confirmation message for already taken spots
+                const takenConfirmationMessage = document.getElementById('taken-confirmation');
+                takenConfirmationMessage.style.display = 'block';
+                // Hide the confirmation message after a few seconds
+                setTimeout(function() {
+                    takenConfirmationMessage.style.display = 'none';
+                }, 3000);
+            } else {
+                // Mark the spot as occupied
+                listItem.classList.add('occupied');
+                listItem.innerHTML = `Spot ${spotNumber} - Occupied`;
+
+                // Remove the spot from the list of available spots
+                const index = availableSpots.indexOf(spotNumber);
+                if (index !== -1) {
+                    availableSpots.splice(index, 1);
+                }
+                refreshAvailableSpotsList();
+                
+                // Show the confirmation message for successful occupation
+                const confirmationMessage = document.getElementById('confirmation');
+                confirmationMessage.style.display = 'block';
+                
+                // Hide the confirmation message after a few seconds
+                setTimeout(function() {
+                    confirmationMessage.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        function occupyByInput() {
+            const spotInput = document.getElementById('parkingSpotInput');
+            const spotNumber = parseInt(spotInput.value);
+            if (!isNaN(spotNumber)) {
+                markOccupied(spotNumber);
+                spotInput.value = '';
+            } else {
+                alert('Please enter a valid parking spot number.');
+            }
+        }
+
+        function refreshAvailableSpotsList() {
+            const availableSpotList = document.getElementById('available-spot-list');
+            availableSpotList.innerHTML = ''; // Clear the list
+            availableSpots.forEach((spot) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `Spot ${spot}`;
+                availableSpotList.appendChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>
