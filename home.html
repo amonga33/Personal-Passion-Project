@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Parking Lot</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
+        body {
+            font-family: 'Raleway', Arial, sans-serif;
+            background: linear-gradient(135deg, black, red, red, black);
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: white;
+            font-weight: 300;
+            font-size: 36px;
+            margin-top: 20px;
+        }
+
+        .school-logo {
+            max-width: 200px;
+        }
+
+        button {
+            background: linear-gradient(135deg, black, silver);
+            color: white;
+            border: none;
+            padding: 30px 50px;
+            margin: 10px;
+            cursor: pointer;
+            background-clip: text;
+            font-size: 24px;
+            font-weight: 600;
+            font-family: 'Raleway', Arial, sans-serif;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, silver, black);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <h1>BVW PARKING</h1>
+    <img class="school-logo" src="https://upload.wikimedia.org/wikipedia/en/a/a2/Blue_Valley_Northwest_High_School_%28logo%29.png" alt="School Logo">
+
+    <button onclick="goToParkingLot('gymlot.html')">Gym Lot</button>
+    <button onclick="goToParkingLot('bandlot.html')">Band Lot</button>
+    <button onclick="goToParkingLot('seniorlot.html')">Senior Lot</button>
+
+    <script>
+        function goToParkingLot(parkingLot) {
+            // Redirect to the respective parking lot page based on the button clicked
+            window.location.href = parkingLot;
+        }
+    </script>
+</body>
+</html>
